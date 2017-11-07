@@ -1,5 +1,5 @@
 # CHASeq
-Perl scripts providing Computational Help for the Analysis of SEQuence data
+Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq**uence data
 
 ## <a name="before-you-begin"></a>Before You Begin
 
@@ -38,15 +38,15 @@ When using this software, please refer to an cite:
 
 * **gb2gtf.pl**. At the command line, provide this script with one argument: a GenBank (.gbk) file. It will extract the coding element (CDS) annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie. Not working? Let us know, and we'll improve it! Here's an example:
 
-        gb2gtf.pl my_genbank_file.gbk
+        gb2gtf.pl <my_genbank_file.gbk>
         
 * **gff2gtf.pl**. At the command line, provide this script with one argument: a General Feature Format (.gff) file. It will extract the coding element annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie, with "gene_id" annotations identified using the GFF "ID" tag. Not working, or need a different tag? Let us know, and we'll improve it! Here's an example:
 
-        gff2gtf.pl my_gff_file.gff
+        gff2gtf.pl <my_gff_file.gff>
 
 * **split_fasta.pl**. At the command line, provide this script with one argument: a FASTA (.fa or .fasta) file containing multiple sequences. This script will create multiple files in the working directory, each containing one of the sequences. Here's an example:
 
-        split_fasta.pl my_multi_fasta_file.fasta
+        split_fasta.pl <my_multi_fasta_file.fasta>
 
 * **vcf2revcom.pl**. This script automates the creation of the reverse complement input files. At the command line, provide this script with three arguments, in the following order: 
 	1. A '+' strand FASTA (.fa or .fasta) file containing the reference sequence against which SNPs were called;
@@ -55,4 +55,4 @@ When using this software, please refer to an cite:
 
 	This script will then create a '-' strand (reverse complement) version of each file in the working directory, with "_revcom" concatenated to the original file name. Here's an example:
 
-        vcf2revcom.pl my_snp_report.vcf my_reference_sequence.fasta my_cds_file.gtf
+        vcf2revcom.pl <my_snp_report.vcf> <my_reference_sequence.fasta> <my_cds_file.gtf>
