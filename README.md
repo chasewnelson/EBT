@@ -30,7 +30,7 @@ If a script isn't working, try working through the following checklist:
 
 ## <a name="citation"></a>Citation
 
-When using this software, please refer to an cite:
+When using this software, please refer to and cite:
 
 >CHASeq software package, https://github.com/chasewnelson/CHASeq
 
