@@ -3,9 +3,9 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 
 ## <a name="before-you-begin"></a>Before You Begin
 
-I provide these scripts for anyone to use freely. Please just cite this GitHub page (below). They are meant for use on Unix/Mac machines; no support is offered for Windows.
+I provide these scripts for anyone to use freely for help in performing routines bioinformatics tasks with nucleotide sequence and related data. Please just cite this GitHub page (below). The scripts are meant for use on Unix/Mac machines; no support is offered for Windows.
 
-Most scripts are designed to take unnamed arguments for simple data file manipulations, in the following format:
+Most scripts are designed to take (unnamed) arguments for simple data file manipulations, in the following format:
 
         CHASeq_script.pl <argument1> <argument2>
 
@@ -35,6 +35,10 @@ When using this software, please refer to and cite:
 >CHASeq software package, https://github.com/chasewnelson/CHASeq
 
 ## <a name="script-descriptions"></a>Script Descriptions
+
+* **calculate\_p\_distance.pl**. You want to calculate a *p*-distance between two nucleotide sequences. At the command line, provide this script with two arguments: two FASTA (.fa or .fasta) files, each containing one sequence, which are aligned to each other. This script will exclude positions which are gaps (-) or undetermined (N) in both sequences and return a *p*-distance. Here's an example:
+
+        calculate_p_distance.pl <aligned_seq_1.fasta> <aligned_seq_2.fasta>
 
 * **gb2gtf.pl**. (*Helpful for preparing **SNPGenie** input!*) You want to create a GTF file from a GenBank file, compatible with SNPGenie input. At the command line, provide this script with one argument: a GenBank (.gbk) file. It will extract the coding element (CDS) annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie. Not working? Let us know, and we'll improve it! Here's an example:
 
