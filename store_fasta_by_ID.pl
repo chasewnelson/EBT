@@ -7,8 +7,26 @@
 # OUTPUTS: a fasta file containing ONLY the sequences with headers matching the IDs given
 #   in the file given in argument [1] (second argument).
 
+#########################################################################################
 # EXAMPLE CALL:
+#########################################################################################
 # store_fasta_by_ID.pl all_my_sequences.fasta just_wanted_seqs_headers.txt > just_wanted_seqs.fa
+#
+# where <all_my_sequences.fasta> might begin:
+# >My_FASTA_Header1
+# ATGCCAGGGTTT...
+# >My_FASTA_Header2
+# ATGCCAGGGTTC...
+# ...
+#
+# and where <ust_wanted_seqs_headers.txt> might begin:
+# My_FASTA_Header2
+# My_FASTA_Header6
+# ...
+#########################################################################################
+
+# ACKNOWLEDGMENTS: written by C.W.N. with support from a Gerstner Scholars Fellowship from
+# the Gerstner Family Foundation at the American Museum of Natural History, New York.
 
 # We have co-opted by natural selection. That's what this is.
 

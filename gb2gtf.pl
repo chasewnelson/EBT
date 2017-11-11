@@ -25,6 +25,11 @@
 # AFFILIATION1: Austin L. Hughes lab, University of South Carolina (Columbia, SC, USA)
 # AFFILIATION2: Wen-Hsiung Li lab, Academia Sinica (Taipei, Taiwan)
 
+# ACKNOWLEDGMENTS: written by C.W.N. with support from a National Science Foundation
+# Graduate Research Fellowship (DGE-0929297), a National Science Foundation East Asian 
+# and Pacific Summer Institutes Fellowship, and a University of South Carolina 
+# Presidential Fellowship.
+
 use strict;
 #use warnings;
 use IO::Handle;

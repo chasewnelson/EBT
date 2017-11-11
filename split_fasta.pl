@@ -20,6 +20,11 @@ use warnings;
 # Check that an argument is given
 # User-given arguments are placed in the array @ARGV, indexed with 0
 
+# ACKNOWLEDGMENTS: written by C.W.N. with support from a National Science Foundation
+# Graduate Research Fellowship (DGE-0929297), a National Science Foundation East Asian 
+# and Pacific Summer Institutes Fellowship, and a University of South Carolina 
+# Presidential Fellowship.
+
 if(! $ARGV[0]) {
 	die "\nAn argument must be supplied: seqFile.fasta";
 }
