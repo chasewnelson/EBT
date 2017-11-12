@@ -6,12 +6,12 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 * [Citation](#citation)
 * [Troubleshooting](#troubleshooting)
 * [Scripts](#scripts)
-	* [**calculate\_p\_distance.pl**](#calculate-p-distance). You want to calculate a *p*-distance between two nucleotide sequences.
-	* [**gb2gtf.pl**](#gb-to-gtf). You want to create a GTF file from a GenBank file, compatible with SNPGenie input.
-	* [**gff2gtf.pl**](#gff-to-gtf). You want to convert a GFF file to a simpler GTF file, compatible with SNPGenie input.
-	* [**split\_fasta.pl**](#split-fasta). You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
-	* [**store\_fasta\_by\_ID.pl**](#store-fasta-by-ID). You want to create a new FASTA file containing only a certain subset of another FASTA.
-	* [**vcf2revcom.pl**](#vcf-to-revcom). You want to convert a VCF SNP report file, along with its accompanying FASTA file and GTF file, to the reverse complement strand.
+	* [calculate\_p\_distance.pl](#calculate-p-distance). You want to calculate a *p*-distance between two nucleotide sequences.
+	* [gb2gtf.pl](#gb-to-gtf). You want to create a GTF file from a GenBank file, compatible with SNPGenie input.
+	* [gff2gtf.pl](#gff-to-gtf). You want to convert a GFF file to a simpler GTF file, compatible with SNPGenie input.
+	* [split\_fasta.pl](#split-fasta). You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
+	* [store\_fasta\_by\_ID.pl](#store-fasta-by-ID). You want to create a new FASTA file containing only a certain subset of another FASTA.
+	* [vcf2revcom.pl](#vcf-to-revcom). You want to convert a VCF SNP report file, along with its accompanying FASTA file and GTF file, to the reverse complement strand.
 
 ## <a name="before-you-begin"></a>Before You Begin
 
