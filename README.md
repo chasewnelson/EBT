@@ -75,7 +75,7 @@ If a script isn't working, try working through the following checklist:
 
         store_fasta_by_ID.pl <all_seqs.fasta> <wanted_seqs_headers.txt> > <just_wanted_seqs.fasta>
 
-* <a name="vcf-to-revcom"></a>**vcf2revcom.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a VCF SNP report file, along with its accompanying FASTA file and <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, to the reverse complement strand. This script automates the creation of such reverse complement files, compatible with SNPGenie input. At the command line, provide this script with three arguments, in the following order: 
+* <a name="vcf-to-revcom"></a>**vcf2revcom.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a VCF SNP report file, along with its accompanying FASTA file and <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, to the reverse complement strand. This script automates the creation of such reverse complement files, compatible with SNPGenie input. Note that the resulting SNP report will not be a VCF file, but rather a CLC Genomics Workbench format file. At the command line, provide this script with three arguments, in the following order: 
 	1. A '+' strand FASTA (.fa or .fasta) file containing the reference sequence against which SNPs were called;
 	2. A '+' strand <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file containing both '+' and '–' strand products from the '+' strand point of view; and 
 	3. A '+' strand SNP report in VCF format.
