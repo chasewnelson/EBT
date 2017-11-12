@@ -7,6 +7,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 * [Troubleshooting](#troubleshooting)
 * [Scripts](#scripts)
 	* [calculate\_p\_distance.pl](#calculate-p-distance). You want to calculate a *p*-distance between two nucleotide sequences.
+	* [extract\_fasta\_by\_sites.pl](#extract-fasta-by-sites). You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file.
 	* [gb2gtf.pl](#gb-to-gtf). You want to create a GTF file from a GenBank file, compatible with SNPGenie input.
 	* [gff2gtf.pl](#gff-to-gtf). You want to convert a GFF file to a simpler GTF file, compatible with SNPGenie input.
 	* [split\_fasta.pl](#split-fasta). You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
@@ -51,6 +52,10 @@ If a script isn't working, try working through the following checklist:
 * <a name="calculate-p-distance"></a>**calculate\_p\_distance.pl**. You want to calculate a *p*-distance between two nucleotide sequences. At the command line, provide this script with two arguments: two FASTA (.fa or .fasta) files, each containing one sequence, which are aligned to each other. This script will exclude positions which are gaps (-) or undetermined (N) in both sequences and return a *p*-distance. Here's an example:
 
         calculate_p_distance.pl <aligned_seq_1.fasta> <aligned_seq_2.fasta>
+
+* <a name="extract-fasta-by-sites"></a>**extract\_fasta\_by\_sites.pl**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file. At the command line, provide this script with two arguments: (1) one FASTA file containing one or more aligned sequences; and (2) a GTF file containing the CDS products to extract. It will extract the sites for each coding element (CDS) annotation in the Gene Transfer Format, and output one FASTA file for each. Here's an example:
+
+        extract_fasta_by_sites.pl <multiple_aligned_seqs.fasta> <gene_coordinates_to_extract.gtf>
 
 * <a name="gb-to-gtf"></a>**gb2gtf.pl**. (*Helpful for preparing **SNPGenie** input!*) You want to create a GTF file from a GenBank file, compatible with SNPGenie input. At the command line, provide this script with one argument: a GenBank (.gbk) file. It will extract the coding element (CDS) annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie. Not working? Let us know, and we'll improve it! Here's an example:
 
