@@ -2,21 +2,23 @@
 Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq**uence data
 
 ## <a name="contents"></a>Contents
-* [Before You Begin](#before-you-begin)
-* [Citation](#citation)
-* [Troubleshooting](#troubleshooting)
-* [Scripts](#scripts)
-	* [calculate\_p\_distance.pl](#calculate-p-distance). You want to calculate a *p*-distance between two nucleotide sequences.
-	* [extract\_fasta\_by\_sites.pl](#extract-fasta-by-sites). You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file.
-	* [gb2gtf.pl](#gb-to-gtf). You want to create a GTF file from a GenBank file, compatible with SNPGenie input.
-	* [gff2gtf.pl](#gff-to-gtf). You want to convert a GFF file to a simpler GTF file, compatible with SNPGenie input.
-	* [split\_fasta.pl](#split-fasta). You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
-	* [store\_fasta\_by\_ID.pl](#store-fasta-by-ID). You want to create a new FASTA file containing only a certain subset of another FASTA.
-	* [vcf2revcom.pl](#vcf-to-revcom). You want to convert a VCF SNP report file, along with its accompanying FASTA file and GTF file, to the reverse complement strand.
+* **[Before You Begin](#before-you-begin)**
+* **[Citation](#citation)**
+* **[Troubleshooting](#troubleshooting)**
+* **[Scripts](#scripts)**
+	* **[calculate\_p\_distance.pl](#calculate-p-distance)**. You want to calculate a *p*-distance between two nucleotide sequences.
+	* **[extract\_fasta\_by\_sites.pl](#extract-fasta-by-sites)**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file.
+	* **[gb2gtf.pl](#gb-to-gtf)**. You want to create a <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file from a GenBank file, compatible with SNPGenie input.
+	* **[gff2gtf.pl](#gff-to-gtf)**. You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input.
+	* **[split\_fasta.pl](#split-fasta)**. You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
+	* **[store\_fasta\_by\_ID.pl](#store-fasta-by-ID)**. You want to create a new FASTA file containing only a certain subset of another FASTA.
+	* **[vcf2revcom.pl](#vcf-to-revcom)**. You want to convert a VCF SNP report file, along with its accompanying FASTA file and <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, to the reverse complement strand.
 
 ## <a name="before-you-begin"></a>Before You Begin
 
-I provide these scripts for anyone to use freely for help in performing routines bioinformatics tasks with nucleotide sequence and related data. Please just cite this GitHub page (below). The scripts are meant for use on Unix/Mac machines; no support is offered for Windows.
+I provide these scripts for anyone to use freely for help in performing routine bioinformatics tasks with nucleotide sequence and related data. Please just [cite this GitHub page](#citation). The scripts are meant for use on Unix/Mac machines; no support is offered for Windows. Readers of code, be warned: very little effort has been made to 'clean up' my coding comments and alternative operations. Think of them as pseudogenes!
+
+### How to Use
 
 Most scripts are designed to take (unnamed) arguments for simple data file manipulations, in the following format:
 
@@ -53,15 +55,15 @@ If a script isn't working, try working through the following checklist:
 
         calculate_p_distance.pl <aligned_seq_1.fasta> <aligned_seq_2.fasta>
 
-* <a name="extract-fasta-by-sites"></a>**extract\_fasta\_by\_sites.pl**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file. At the command line, provide this script with two arguments: (1) one FASTA file containing one or more aligned sequences; and (2) a GTF file containing the CDS products to extract. It will extract the sites for each coding element (CDS) annotation in the Gene Transfer Format, and output one FASTA file for each. Here's an example:
+* <a name="extract-fasta-by-sites"></a>**extract\_fasta\_by\_sites.pl**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file. At the command line, provide this script with two arguments: (1) one FASTA file containing one or more aligned sequences; and (2) a <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file containing the CDS products to extract. It will extract the sites for each coding element (CDS) annotation in the Gene Transfer Format, and output one FASTA file for each. Here's an example:
 
         extract_fasta_by_sites.pl <multiple_aligned_seqs.fasta> <gene_coordinates_to_extract.gtf>
 
-* <a name="gb-to-gtf"></a>**gb2gtf.pl**. (*Helpful for preparing **SNPGenie** input!*) You want to create a GTF file from a GenBank file, compatible with SNPGenie input. At the command line, provide this script with one argument: a GenBank (.gbk) file. It will extract the coding element (CDS) annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie. Not working? Let us know, and we'll improve it! Here's an example:
+* <a name="gb-to-gtf"></a>**gb2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to create a <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file from a GenBank file, compatible with SNPGenie input. At the command line, provide this script with one argument: a GenBank (.gbk) file. It will extract the coding element (CDS) annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie. Not working? Let us know, and we'll improve it! Here's an example:
 
         gb2gtf.pl <my_genbank_file.gbk>
         
-* <a name="gff-to-gtf"></a>**gff2gtf.pl**. (*Helpful for preparing **SNPGenie** input!*) You want to convert a GFF file to a simpler GTF file, compatible with SNPGenie input. At the command line, provide this script with one argument: a General Feature Format (.gff) file. It will extract the coding element annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie, with "gene_id" annotations identified using the GFF "ID" tag. Not working, or need a different tag? Let us know, and we'll improve it! Here's an example:
+* <a name="gff-to-gtf"></a>**gff2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input. At the command line, provide this script with one argument: a General Feature Format (.gff) file. It will extract the coding element annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie, with "gene_id" annotations identified using the GFF "ID" tag. Not working, or need a different tag? Let us know, and we'll improve it! Here's an example:
 
         gff2gtf.pl <my_gff_file.gff>
 
@@ -73,9 +75,9 @@ If a script isn't working, try working through the following checklist:
 
         store_fasta_by_ID.pl <all_seqs.fasta> <wanted_seqs_headers.txt> > <just_wanted_seqs.fasta>
 
-* <a name="vcf-to-revcom"></a>**vcf2revcom.pl**. (*Helpful for preparing **SNPGenie** input!*) You want to convert a VCF SNP report file, along with its accompanying FASTA file and GTF file, to the reverse complement strand. This script automates the creation of such reverse complement files, compatible with SNPGenie input. At the command line, provide this script with three arguments, in the following order: 
+* <a name="vcf-to-revcom"></a>**vcf2revcom.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a VCF SNP report file, along with its accompanying FASTA file and <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, to the reverse complement strand. This script automates the creation of such reverse complement files, compatible with SNPGenie input. At the command line, provide this script with three arguments, in the following order: 
 	1. A '+' strand FASTA (.fa or .fasta) file containing the reference sequence against which SNPs were called;
-	2. A '+' strand GTF file containing both '+' and '–' strand products from the '+' strand point of view; and 
+	2. A '+' strand <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file containing both '+' and '–' strand products from the '+' strand point of view; and 
 	3. A '+' strand SNP report in VCF format.
 
 	This script will then create a '-' strand (reverse complement) version of each file in the working directory, with "_revcom" concatenated to the original file name. Here's an example:
