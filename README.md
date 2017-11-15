@@ -1,5 +1,5 @@
 # CHASeq
-Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq**uence data
+Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq**uence data.
 
 ## <a name="contents"></a>Contents
 * **[Before You Begin](#before-you-begin)**
@@ -12,6 +12,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 	* **[gb2gtf.pl](#gb-to-gtf)**. You want to create a <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file from a GenBank file, compatible with SNPGenie input.
 	* **[get\_random\_integers.pl](#get-random-integers)**. You want to get a certain number of random integer values in a range.
 	* **[gff2gtf.pl](#gff-to-gtf)**. You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input.
+	* **[remove\_seqs\_with\_stops.pl](#remove-seqs-with-stops)**. You have a FASTA file where each sequence is an in-frame coding sequence, and want to remove all sequences containing mid-sequence STOP codons.
 	* **[split\_fasta.pl](#split-fasta)**. You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
 	* **[store\_fasta\_by\_ID.pl](#store-fasta-by-ID)**. You want to create a new FASTA file containing only a certain subset of another FASTA.
 	* **[vcf2revcom.pl](#vcf-to-revcom)**. You want to convert a VCF SNP report file, along with its accompanying FASTA file and <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, to the reverse complement strand.
@@ -77,9 +78,13 @@ If a script isn't working, try working through the following checklist:
 
         gff2gtf.pl <my_gff_file.gff>
 
+* <a name="remove-seqs-with-stops"></a>**remove\_seqs\_with\_stops.pl**. You have a FASTA file where each sequence is an in-frame coding sequence, and want to remove all sequences containing mid-sequence STOP codons. At the command line, provide this script with one argument: a FASTA (.fa or .fasta) file containing multiple coding sequences that all begin at the first position of the first codon (they need not be aligned to each other). This script will create a new FASTA file in the working directory, containing just those sequences lacking an in-frame mid-sequence STOP codon. Here's an example:
+
+        remove_seqs_with_stops.pl <my_fasta_file.fasta>
+
 * <a name="split-fasta"></a>**split\_fasta.pl**. You want to create an individual FASTA file for each sequence in another FASTA file. At the command line, provide this script with one argument: a FASTA (.fa or .fasta) file containing multiple sequences. This script will create multiple files in the working directory, each containing one of the sequences. Here's an example:
 
-        split_fasta.pl <my_multi_fasta_file.fasta>
+        split_fasta.pl <my_fasta_file.fasta>
 
 * <a name="store-fasta-by-ID"></a>**store\_fasta\_by\_ID.pl**. You want to create a new FASTA file containing only a certain subset of another FASTA. At the command line, provide this script with two arguments: (1) a FASTA (.fa or .fasta) file containing multiple sequences; and (2) a .txt file containing one column with the FASTA IDs you want in your new FASTA file — there should be NO HEADER. This script will create a new FASTA file in the working directory, containing the sequences whose headers begin with the IDs in argument (2). Redirect (>) the output to create a file. Here's an example:
 
