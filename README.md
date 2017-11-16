@@ -11,6 +11,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 	* **[extract\_fasta\_by\_sites.pl](#extract-fasta-by-sites)**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file.
 	* **[gb2gtf.pl](#gb-to-gtf)**. You want to create a <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file from a GenBank file, compatible with SNPGenie input.
 	* **[get\_random\_integers.pl](#get-random-integers)**. You want to get a certain number of random integer values in a range.
+	* **[get\_unique\_values.pl](#get-unique-values)**. You have a table with a column containing multiple rows with the same value(s) (i.e., duplicates), and you want to extract just the unique ones (i.e., remove duplicate values) and generate summary statistics for the duplicates.
 	* **[gff2gtf.pl](#gff-to-gtf)**. You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input.
 	* **[remove\_seqs\_with\_stops.pl](#remove-seqs-with-stops)**. You have a FASTA file where each sequence is an in-frame coding sequence, and want to remove all sequences containing mid-sequence STOP codons.
 	* **[split\_fasta.pl](#split-fasta)**. You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
@@ -73,7 +74,11 @@ If a script isn't working, try working through the following checklist:
 * <a name="get-random-integers"></a>**get\_random\_integers.pl**. You want to get a certain number of random integer values in a range. At the command line, provide this script with three arguments: (1) number of random integer values wanted; (2) bottom of range (inclusive); (3) top of range (inclusive). Returns the specified number of random integers in the desired range. Here's an example to return 10 values in the range [3,999]:
 
         get_random_integers.pl 10 3 999
-        
+
+* <a name="get-unique-values"></a>**get\_unique\_values.pl**. You have a table with a column containing multiple rows with the same value(s) (i.e., duplicates), and you want to extract just the unique ones (i.e., remove duplicate values) and generate summary statistics for the duplicates. At the command line, provide this script with two arguments: (1) the name of the input tab-delimited file; and (2) the column number to analyze. The script outputs the unique values in the column, i.e., duplicate values eliminated, including the header. Also creates a summary statistics file in the working directory, by the name *\_unique\_values\_summary.txt. Here's an example:
+
+        get_unique_values.pl <my_table.txt> <column_number>
+
 * <a name="gff-to-gtf"></a>**gff2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input. At the command line, provide this script with one argument: a General Feature Format (.gff) file. It will extract the coding element annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie, with "gene_id" annotations identified using the GFF "ID" tag. Not working, or need a different tag? Let us know, and we'll improve it! Here's an example:
 
         gff2gtf.pl <my_gff_file.gff>
