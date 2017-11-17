@@ -6,6 +6,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 * **[Citation](#citation)**
 * **[Troubleshooting](#troubleshooting)**
 * **[Scripts](#scripts)**
+	* **[aligned\_fasta\_group\_diffs.pl](#aligned-fasta-group-diffs)**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences.
 	* **[calculate\_p\_distance.pl](#calculate-p-distance)**. You want to calculate a *p*-distance between two nucleotide sequences.
 	* **[extract\_codon\_from\_ANN\_VCFs.pl](#extract-codon-from-ANN-VCFs)**. You want to pull codon variants out of annotated VCF files (i.e., files that have been annotated using the <a target="_blank" href="http://snpeff.sourceforge.net/SnpSift.html">snpeff -formatEff</a> option), so that reference and variant codons can be compared. 
 	* **[extract\_fasta\_by\_sites.pl](#extract-fasta-by-sites)**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file.
@@ -54,6 +55,10 @@ If a script isn't working, try working through the following checklist:
 	If the string of letters at the beginning of the line containing your script (here, it's **-rwxr-xr-x**) *does not* contain an 'x', it means it is not yet executable. You can add executable status by typing **chmod +x \<script.pl\>**, where \<script.pl\> is replaced with the script's name.
 
 ## <a name="scripts"></a>Scripts
+
+* <a name="aligned-fasta-group-diffs"></a>**aligned\_fasta\_group\_diffs.pl**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences. First, make sure all sequences are aligned to one another (even across groups), place each group of sequences in a separate FASTA file, and create a directory containing all the group FASTA files (but no others). Then, at the command line, call this script. A results file will be placed in the working directory describing positions at which the groups differ in their major nucleotide. (In the future, arguments will be added to allow the user to control how these sites are determined.) Here's an example:
+
+        aligned_fasta_group_diffs.pl
 
 * <a name="calculate-p-distance"></a>**calculate\_p\_distance.pl**. You want to calculate a *p*-distance between two nucleotide sequences. At the command line, provide this script with two arguments: two FASTA (.fa or .fasta) files, each containing one sequence, which are aligned to each other. This script will exclude positions which are gaps (-) or undetermined (N) in both sequences and return a *p*-distance. Here's an example:
 
