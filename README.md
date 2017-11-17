@@ -56,9 +56,17 @@ If a script isn't working, try working through the following checklist:
 
 ## <a name="scripts"></a>Scripts
 
-* <a name="aligned-fasta-group-diffs"></a>**aligned\_fasta\_group\_diffs.pl**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences. First, make sure all sequences are aligned to one another (even across groups), place each group of sequences in a separate FASTA file, and create a directory containing all the group FASTA files (but no others). Then, at the command line, call this script. A results file will be placed in the working directory describing positions at which the groups differ in their major nucleotide. (In the future, arguments will be added to allow the user to control how these sites are determined.) Here's an example:
+* <a name="aligned-fasta-group-diffs"></a>**aligned\_fasta\_group\_diffs.pl**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences. First, make sure all sequences are aligned to one another (even across groups), place each group of sequences in a separate FASTA file, and create a directory containing all the group FASTA files (but no others). Then, at the command line, call this script. A results file will be placed in the working directory describing positions at which the groups differ in their major nucleotide. For more control use the following options:
+	* *--min\_variant\_maj\_nt_freq* to specify a minimum frequency cutoff for assigning a group's majority (consensus) nucleotide. Must be a decimal. Default=0.9 (90%).
+	* *--min\_site\_coverage* to specify a minimum number of defined sequences required for calculating a group's frequencies. Must be an integer. For example, some sites in some groups may be mostly gaps (-) or undetermined (N), in which case we may not want to consider frequency calculations reliable. Default=5.
+
+	Here is an example using defaults:
 
         aligned_fasta_group_diffs.pl
+
+	Here is an example using using a frequency cutoff of 90% with a minimum of 8 defined nucleotides per site for each group:
+
+        aligned_fasta_group_diffs.pl --min_variant_maj_nt_freq=.9 --min_site_coverage=8
 
 * <a name="calculate-p-distance"></a>**calculate\_p\_distance.pl**. You want to calculate a *p*-distance between two nucleotide sequences. At the command line, provide this script with two arguments: two FASTA (.fa or .fasta) files, each containing one sequence, which are aligned to each other. This script will exclude positions which are gaps (-) or undetermined (N) in both sequences and return a *p*-distance. Here's an example:
 

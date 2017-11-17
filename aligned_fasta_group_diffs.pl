@@ -24,10 +24,39 @@
 
 use strict;
 #use warnings;
+use Getopt::Long;
 use Data::Dumper;
 
-STDOUT->autoflush(1);
+STDOUT->autoflush(1); # requires Data::Dumper, but needed
 
+#########################################################################################
+# INITIALIZE (OPTIONAL) INPUT VARIABLES
+my $min_variant_maj_nt_freq;
+my $min_site_coverage;
+
+# Get user input, if given. If a Boolean argument is passed, its value is 1; else undef
+GetOptions( "min_variant_maj_nt_freq:f" => \$min_variant_maj_nt_freq, # optional floating point parameter
+			"min_site_coverage:i" => \$min_site_coverage) # optional integer parameter
+			
+			or die "\n### WARNING: Error in command line arguments. Script terminated.\n\n";
+			# If an argument is called as a flag, its value is 0; if not called, it's null
+			
+if(! $min_variant_maj_nt_freq) { # null or 0
+	$min_variant_maj_nt_freq = 0.5; # default behavior
+} elsif($min_variant_maj_nt_freq < 0.5) {
+	die "\n### WARNING: The --min_variant_maj_nt_freq option must ≥0.5\n".
+		"### Script terminated.\n\n";
+}
+
+if(! $min_site_coverage) { # null or 0
+	$min_site_coverage = 5; # default behavior
+} elsif($min_site_coverage < 1) {
+	die "\n### WARNING: The --min_site_coverage option must ≥1\n".
+		"### Script terminated.\n\n";
+}
+
+#########################################################################################
+# PREPARE TO STORE FASTA DATA
 my @fasta_file_names_arr = &get_fasta_file_names;
 my %group2seqs_ha;
 
@@ -166,26 +195,31 @@ for(my $i = 0; $i < $seq_length; $i++) {
 		
 #		print "\nsite $i group $group maj_nt $maj_nt with $maj_count / $defined_count = $maj_nt_freq\n";
 		
-#		if($maj_nt ne 'N') { # did we make sure it wasn't? Can't we just exclude when finding?
-#			
-#		}
-		
 	}
 	
 	my $prev_group_maj_nt = '';
 	my $maj_nt_diff_flag = 0;
 	
-	# Find out if there's a difference, if it has to do with N's
+	# Find out if there's a difference, but don't consider if it's an N or gap (-)
 	foreach my $group (@groups) {
 		my $this_group_maj_nt = $group2maj_nt{$group}->{maj_nt};
 		if($this_group_maj_nt ne 'N' && $this_group_maj_nt ne '-') {
-			if($prev_group_maj_nt eq '') {
-				$prev_group_maj_nt = $group2maj_nt{$group}->{maj_nt};
-			} elsif($prev_group_maj_nt ne $group2maj_nt{$group}->{maj_nt}) {
-	#			print "\nsite index $i has disparate major nucleotides among groups.\n";
-				$maj_nt_diff_flag = 1;
-				last;
-			}
+			
+			my $this_group_defined_count = $group2maj_nt{$group}->{defined_count};
+			my $this_group_maj_nt_freq = $group2maj_nt{$group}->{maj_nt_freq};
+			
+			# Make sure it fits our minimum freq and seq coverage criteria
+			if($this_group_maj_nt_freq >= $min_variant_maj_nt_freq && $this_group_defined_count >= $min_site_coverage) {
+				if($prev_group_maj_nt eq '') { # haven't seen a defined nt yet
+					$prev_group_maj_nt = $group2maj_nt{$group}->{maj_nt};
+				} elsif($prev_group_maj_nt ne $group2maj_nt{$group}->{maj_nt}) {
+		#			print "\nsite index $i has disparate major nucleotides among groups.\n";
+					$maj_nt_diff_flag = 1;
+					last;
+				}
+			}# else {
+			#	print "\n### excluded a variant in $group index $i because criteria not satisfied\n\n";
+			#}
 		}
 	}
 	
@@ -214,8 +248,7 @@ for(my $i = 0; $i < $seq_length; $i++) {
 		
 	}
 	
-	
-}
+} # end last site
 
 
 ## my @A_counts;
