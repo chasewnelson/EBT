@@ -138,6 +138,7 @@ foreach my $fasta_file_name (@fasta_file_names_arr) {
 # some threshold like 90%; (3) in cases where majority nucleotides differ between groups,
 # make note of the sites, nucleotide identities, and coverage.
 
+
 my @groups = sort keys %group2seqs_ha;
 
 # Print header to output file
@@ -151,14 +152,16 @@ foreach my $group (@groups) {
 }
 print "\n";
 
-
+# For each nucleotide
 for(my $i = 0; $i < $seq_length; $i++) {
 	my %group2maj_nt;
 	
+	# For each group (FASTA file)
 	foreach my $group (@groups) {
 		my @this_group_seqs = @{$group2seqs_ha{$group}};
 		my %nt_count;
 		
+		# Count number of each nucleotide (A, C, G, T) at this site in this group
 		foreach my $this_seq (@this_group_seqs) {
 			my $this_nt = substr($this_seq,$i,1);
 #			print "\nNT IS: $this_nt\n";
@@ -170,11 +173,14 @@ for(my $i = 0; $i < $seq_length; $i++) {
 		my $maj_count = 0;
 		my $defined_count = 0;
 		
-		# Check if the two highest have the same counts?		
+		# Check if the two highest have the same counts?	
+		
+		# Count the number of nucleotides that are defined, i.e., not 'N' or '-'	
 		foreach my $observed_nt (keys %nt_count) {
 			if($observed_nt ne 'N' && $observed_nt ne '-') {
 				$defined_count += $nt_count{$observed_nt};
 				
+				# If it's got the highest count observed so far, make it the major nucleotide
 				if($nt_count{$observed_nt} > $maj_count) {
 					$maj_nt = $observed_nt;
 					$maj_count = $nt_count{$observed_nt};
@@ -182,6 +188,7 @@ for(my $i = 0; $i < $seq_length; $i++) {
 			}
 		}
 		
+		# Define frequency of major nucleotide in this group if there are defined nucleotides
 		my $maj_nt_freq = 0;
 		if($defined_count > 0) {
 			$maj_nt_freq = $maj_count / $defined_count;
@@ -191,7 +198,7 @@ for(my $i = 0; $i < $seq_length; $i++) {
 		$group2maj_nt{$group}->{maj_nt} = $maj_nt;
 		$group2maj_nt{$group}->{maj_count} = $maj_count;
 		$group2maj_nt{$group}->{defined_count} = $defined_count;
-		$group2maj_nt{$group}->{maj_nt_freq} = $maj_nt_freq;
+		$group2maj_nt{$group}->{maj_nt_freq} = $maj_nt_freq; # use this later to filter
 		
 #		print "\nsite $i group $group maj_nt $maj_nt with $maj_count / $defined_count = $maj_nt_freq\n";
 		
@@ -230,10 +237,10 @@ for(my $i = 0; $i < $seq_length; $i++) {
 		print "$site_num";
 		
 		foreach my $group (@groups) {
-			print "\t" . $group2maj_nt{$group}->{maj_nt};
-			print "\t" . $group2maj_nt{$group}->{maj_count};
-			print "\t" . $group2maj_nt{$group}->{defined_count};
-			print "\t" . $group2maj_nt{$group}->{maj_nt_freq};
+##			print "\t" . $group2maj_nt{$group}->{maj_nt};
+##			print "\t" . $group2maj_nt{$group}->{maj_count};
+##			print "\t" . $group2maj_nt{$group}->{defined_count};
+##			print "\t" . $group2maj_nt{$group}->{maj_nt_freq};
 			
 #			if($site_num == 83) {
 #				print "\n### GROUP $group\n";
@@ -243,10 +250,23 @@ for(my $i = 0; $i < $seq_length; $i++) {
 #				print "maj_nt_freq=" . $group2maj_nt{$group}->{maj_nt_freq} . "\n";
 #			}
 			
+			# ONLY PRINT if THIS group's frequency matches the frequency criterion
+			if($group2maj_nt{$group}->{maj_nt_freq} >= $min_variant_maj_nt_freq && $group2maj_nt{$group}->{defined_count} >= $min_site_coverage) {
+				print "\t" . $group2maj_nt{$group}->{maj_nt};
+				print "\t" . $group2maj_nt{$group}->{maj_count};
+				print "\t" . $group2maj_nt{$group}->{defined_count};
+				print "\t" . $group2maj_nt{$group}->{maj_nt_freq};
+			} else {
+				print "\t";
+				print "\t";
+				print "\t";
+				print "\t";
+			}
+			
 		}
 		print "\n";
 		
-	}
+	} # there's a difference in the major nucleotides
 	
 } # end last site
 
