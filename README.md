@@ -115,4 +115,4 @@ If a script isn't working, try working through the following checklist:
 
 	This script will then create a '-' strand (reverse complement) version of each file in the working directory, with "_revcom" concatenated to the original file name. Here's an example:
 
-        vcf2revcom.pl <my_snp_report.vcf> <my_reference_sequence.fasta> <my_cds_file.gtf>
+        vcf2revcom.pl <my_reference_sequence.fasta> <my_cds_file.gtf> <my_snp_report.vcf>
