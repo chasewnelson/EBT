@@ -1300,6 +1300,61 @@ sub generate_reverse_complement_fasta {
 }
 
 #########################################################################################
+#sub generate_reverse_complement_gtf {
+#	my ($filename) = @_;
+#	
+#	my $new_gtf_file_name;
+#	if($filename =~/\.gtf/) { 
+#		$new_gtf_file_name = $` . "_revcom.gtf";
+#	} else {
+#		#$new_gtf_file_name = "gtf_revcom.gtf";
+#		die "\nSecond argument must be a .gtf file\n\n";
+#	}
+#	
+#	if(-e $new_gtf_file_name) {
+#		die "\n## $new_gtf_file_name already exists in this directory; delete before proceeding\n\n";
+#	}
+#	
+#	my %gtf_line_by_starting_position;
+#	
+#	open(GTF_FILE, "$filename") or die "\nCould not open the GTF file $filename - $!\n\n";
+#	while(<GTF_FILE>) {
+#		if($_ =~ /CDS\t(\d+)\t(\d+)/) {
+#			my $old_start = $1; # Where the gene itself actually STOPS
+#			my $old_stop = $2; # Where the gene itself actually STARTS
+#			
+#			# Find the coordinates from the revcom point of view
+#			my $this_start = $seq_length - $old_stop + 1;
+#			my $this_stop = $seq_length - $old_start + 1;
+#			
+#			if(exists $gtf_line_by_starting_position{$this_start}) {
+#				die "\n\nTwo products have the same starting position, causing an error.\n".
+#					"Please contact script author for a revision.\n\n";
+#			} else {
+#				$_ =~ s/CDS\t$old_start\t$old_stop\t\.\t\+/CDS\t$this_start\t$this_stop\t\.\t\-/;
+#				$_ =~ s/CDS\t$old_start\t$old_stop\t\.\t\-/CDS\t$this_start\t$this_stop\t\.\t\+/;
+#				$gtf_line_by_starting_position{$this_start} = $_;
+#			}
+#		} 
+#	}
+#	close GTF_FILE;
+#	
+#	# Give NUM LINES CONVERTED tag/warning
+#	my @stored_pos_sorted = sort {$a <=> $b} (keys %gtf_line_by_starting_position);
+#	my $num_positions = scalar(@stored_pos_sorted);
+#	print "\n## A total of $num_positions products were processed. Please verify that ".
+#		"this is the correct number of products.\n";
+#	
+#	open(OUT_FILE_GTF, ">>$new_gtf_file_name");
+#	foreach my $curr_pos (@stored_pos_sorted) {
+#		print OUT_FILE_GTF $gtf_line_by_starting_position{$curr_pos};
+#	}
+#	close OUT_FILE_GTF;
+#	
+#	return $new_gtf_file_name;
+#}
+
+#########################################################################################
 sub generate_reverse_complement_gtf {
 	my ($filename) = @_;
 	
@@ -1315,7 +1370,8 @@ sub generate_reverse_complement_gtf {
 		die "\n## $new_gtf_file_name already exists in this directory; delete before proceeding\n\n";
 	}
 	
-	my %gtf_line_by_starting_position;
+	my @gtf_lines;
+	my $lines_total = 0;
 	
 	open(GTF_FILE, "$filename") or die "\nCould not open the GTF file $filename - $!\n\n";
 	while(<GTF_FILE>) {
@@ -1327,29 +1383,26 @@ sub generate_reverse_complement_gtf {
 			my $this_start = $seq_length - $old_stop + 1;
 			my $this_stop = $seq_length - $old_start + 1;
 			
-			if(exists $gtf_line_by_starting_position{$this_start}) {
-				die "\n\nTwo products have the same starting position, causing an error.\n".
-					"Please contact script author for a revision.\n\n";
-			} else {
-				$_ =~ s/CDS\t$old_start\t$old_stop\t\.\t\+/CDS\t$this_start\t$this_stop\t\.\t\-/;
-				$_ =~ s/CDS\t$old_start\t$old_stop\t\.\t\-/CDS\t$this_start\t$this_stop\t\.\t\+/;
-				$gtf_line_by_starting_position{$this_start} = $_;
-			}
+			# Replace old sites and strand with new
+			$_ =~ s/CDS\t$old_start\t$old_stop\t\.\t\+/CDS\t$this_start\t$this_stop\t\.\t\-/;
+			$_ =~ s/CDS\t$old_start\t$old_stop\t\.\t\-/CDS\t$this_start\t$this_stop\t\.\t\+/;
+			
+			push(@gtf_lines,$_);
+			$lines_total++;
 		} 
 	}
 	close GTF_FILE;
 	
 	# Give NUM LINES CONVERTED tag/warning
-	my @stored_pos_sorted = sort {$a <=> $b} (keys %gtf_line_by_starting_position);
-	my $num_positions = scalar(@stored_pos_sorted);
-	print "\n## A total of $num_positions products were processed. Please verify that ".
+	print "\n## A total of $lines_total products were processed. Please verify that ".
 		"this is the correct number of products.\n";
 	
 	open(OUT_FILE_GTF, ">>$new_gtf_file_name");
-	foreach my $curr_pos (@stored_pos_sorted) {
-		print OUT_FILE_GTF $gtf_line_by_starting_position{$curr_pos};
+	foreach my $gtf_line (@gtf_lines) {
+		print OUT_FILE_GTF $gtf_line;
 	}
 	close OUT_FILE_GTF;
 	
 	return $new_gtf_file_name;
 }
+
