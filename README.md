@@ -8,6 +8,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 * **[Scripts](#scripts)**
 	* **[aligned\_fasta\_group\_diffs.pl](#aligned-fasta-group-diffs)**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences.
 	* **[calculate\_p\_distance.pl](#calculate-p-distance)**. You want to calculate a *p*-distance between two nucleotide sequences.
+	* **[determine\_consensus\_IUPAC\_seqs.pl](#determine-consensus-IUPAC-seqs)**. You want to determine the consensus and/or IUPAC sequence(s) for an aligned nucleotide FASTA file. 
 	* **[extract\_codon\_from\_ANN\_VCFs.pl](#extract-codon-from-ANN-VCFs)**. You want to pull codon variants out of annotated VCF files (i.e., files that have been annotated using the <a target="_blank" href="http://snpeff.sourceforge.net/SnpSift.html">snpeff -formatEff</a> option), so that reference and variant codons can be compared. 
 	* **[extract\_fasta\_by\_sites.pl](#extract-fasta-by-sites)**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file.
 	* **[gb2gtf.pl](#gb-to-gtf)**. You want to create a <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file from a GenBank file, compatible with SNPGenie input.
@@ -71,6 +72,10 @@ If a script isn't working, try working through the following checklist:
 * <a name="calculate-p-distance"></a>**calculate\_p\_distance.pl**. You want to calculate a *p*-distance between two nucleotide sequences. At the command line, provide this script with two arguments: two FASTA (.fa or .fasta) files, each containing one sequence, which are aligned to each other. This script will exclude positions which are gaps (-) or undetermined (N) in both sequences and return a *p*-distance. Here's an example:
 
         calculate_p_distance.pl <aligned_seq_1.fasta> <aligned_seq_2.fasta>
+
+* <a name="determine-consensus-IUPAC-seqs"></a>**determine\_consensus\_IUPAC\_seqs.pl**. You want to determine the consensus and/or IUPAC sequence(s) for an aligned nucleotide FASTA file. At the command line, call this script with one argument, an aligned FASTA file. Two results files will be placed in the working directory, one with a consensus sequence (\*\_consensus.fa) and one with an IUPAC sequence (\*\_IUPAC.fa). Brief summary statistics will be printed to the Terminal. Here's an example:
+
+        determine_consensus_IUPAC_seqs.pl <aligned_seqs.fasta>
 
 * <a name="extract-codon-from-ANN-VCFs"></a>**extract\_codon\_from\_ANN\_VCFs.pl**. You want to pull codon variants out of annotated VCF files (i.e., files that have been annotated using the <a target="_blank" href="http://snpeff.sourceforge.net/SnpSift.html">snpeff -formatEff</a> option), so that reference and variant codons can be compared. At the command line, call this script in a directory containing one or more files ending in **.ann.vcf**. It will extract the information in the "CODON: Codon change" field (e.g. **ggT/ggG**) for each record and output to the files ref\_codons\_seq.txt, alt\_codons\_seq.txt, and codon\_metadata.txt. Here's an example:
 
