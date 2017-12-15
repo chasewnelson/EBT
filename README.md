@@ -7,6 +7,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 * **[Troubleshooting](#troubleshooting)**
 * **[Scripts](#scripts)**
 	* **[aligned\_fasta\_group\_diffs.pl](#aligned-fasta-group-diffs)**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences.
+	* **[aligned\_fasta2site\_nt\_freqs.pl](#aligned-fasta-2-site-nt-freqs)**. You want to tabulate the number (and proportion) of each nucleotide at each variable position across an aligned nucleotide FASTA file.
 	* **[calculate\_p\_distance.pl](#calculate-p-distance)**. You want to calculate a *p*-distance between two nucleotide sequences.
 	* **[determine\_consensus\_IUPAC\_seqs.pl](#determine-consensus-IUPAC-seqs)**. You want to determine the consensus and/or IUPAC sequence(s) for an aligned nucleotide FASTA file. 
 	* **[extract\_codon\_from\_ANN\_VCFs.pl](#extract-codon-from-ANN-VCFs)**. You want to pull codon variants out of annotated VCF files (i.e., files that have been annotated using the <a target="_blank" href="http://snpeff.sourceforge.net/SnpSift.html">snpeff -formatEff</a> option), so that reference and variant codons can be compared. 
@@ -69,6 +70,10 @@ If a script isn't working, try working through the following checklist:
 
         aligned_fasta_group_diffs.pl --min_variant_maj_nt_freq=.9 --min_site_coverage=8
 
+* <a name="aligned-fasta-2-site-nt-freqs"></a>**aligned\_fasta2site\_nt\_freqs.pl**. You want to tabulate the number (and proportion) of each nucleotide at each variable position across an aligned nucleotide FASTA file. At the command line, call this script with one argument, an aligned FASTA file. One TAB-delimited results file will be placed in the working directory (\*\_site_summary.txt) and brief summary statistics will be printed to the Terminal. Here's an example:
+
+        aligned_fasta2site_nt_freqs.pl <aligned_seqs.fasta>
+
 * <a name="calculate-p-distance"></a>**calculate\_p\_distance.pl**. You want to calculate a *p*-distance between two nucleotide sequences. At the command line, provide this script with two arguments: two FASTA (.fa or .fasta) files, each containing one sequence, which are aligned to each other. This script will exclude positions which are gaps (-) or undetermined (N) in both sequences and return a *p*-distance. Here's an example:
 
         calculate_p_distance.pl <aligned_seq_1.fasta> <aligned_seq_2.fasta>
@@ -114,7 +119,7 @@ If a script isn't working, try working through the following checklist:
         store_fasta_by_ID.pl <all_seqs.fasta> <wanted_seqs_headers.txt> > <just_wanted_seqs.fasta>
 
 * <a name="vcf-to-revcom"></a>**vcf2revcom.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a VCF SNP report file, along with its accompanying FASTA file and <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, to the reverse complement strand. This script automates the creation of such reverse complement files, compatible with SNPGenie input. Note that the resulting SNP report will not be a VCF file, but rather a CLC Genomics Workbench format file. At the command line, provide this script with three arguments, in the following order: 
-	1. A '+' strand FASTA (.fa or .fasta) file containing the reference sequence against which SNPs were called;
+	1. A '+' strand FASTA (.fa or .fasta) file containing the reference sequence (ALL UPPERCASE) against which SNPs were called;
 	2. A '+' strand <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file containing both '+' and '–' strand products from the '+' strand point of view; and 
 	3. A '+' strand SNP report in VCF format.
 
