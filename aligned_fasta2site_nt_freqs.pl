@@ -133,6 +133,17 @@ if($filename =~ '.fasta') {
 	$summary_file_name = "fasta_site_summary.txt";
 }
 
+# Also prepare a "SNP report"
+my $snp_file_name;
+if($filename =~ '.fasta') {
+	$snp_file_name = $` . "_snp_summary.txt";
+} elsif($filename =~ '.fa') {
+	$snp_file_name = $` . "_snp_summary.txt";
+} else {
+	$snp_file_name = "fasta_snp_summary.txt";
+}
+
+# Do
 my $total_transitions;
 my $total_transversions;
 
@@ -156,6 +167,10 @@ my %singleton_multiV_codon_pos_counts;
 
 open(OUT, ">>$summary_file_name");
 print OUT "site\tA\tA_prop\tC\tC_prop\tG\tG_prop\tT\tT_prop\n";
+
+open(OUT_SNP, ">>$snp_file_name");
+print OUT_SNP "site\tA\tA_prop\tC\tC_prop\tG\tG_prop\tT\tT_prop\n";
+
 for(my $site_id=1; $site_id<=scalar(@A_counts); $site_id++) { # for each site
 	my $site_index = $site_id - 1;
 	
