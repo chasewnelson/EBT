@@ -74,17 +74,20 @@ while(<IN_FASTA>) {
 		if($seq_num == 0) {
 			$curr_header = $_;
 			
-			if($curr_header =~/>([\w\-\:']+)/) { # whatever follows '>' until first underscore or space # origin />([\w\.\-\:']+)/
+#			if($curr_header =~/>([\w\-\:']+)/) { # USED FOR HPV # whatever follows '>' until first underscore or space # origin />([\w\.\-\:']+)/
+			if($curr_header =~/>([\w\-\:\.\_']+)/) { # whatever follows '>' until first underscore or space # origin />([\w\.\-\:']+)/
 				$curr_seq_ID = $1;
+#				print "\nMatched $curr_seq_ID\n";
 			}
 			
 			$seq_num ++;
 		} else {
 			# READY TO STORE
 			# If there are multiples, it'll contain an underscore
-			if($curr_seq_ID =~ /_/) {
-				$curr_seq_ID = $`;
-			}
+			## HPV ONLY
+			##if($curr_seq_ID =~ /_/) {
+			##	$curr_seq_ID = $`;
+			##}
 			
 			# Store sequence
 			if($seqs_hash{$curr_seq_ID}) { # if MATCHES ANOTHER previous...
@@ -102,8 +105,10 @@ while(<IN_FASTA>) {
 			# NEW HEADER & SEQUENCE!
 			$curr_header = $_;
 			
-			if($curr_header =~/>([\w\-\:']+)/) { # whatever follows '>' until first space # origin />([\w\.\-\:']+)/
+#			if($curr_header =~/>([\w\-\:']+)/) { # whatever follows '>' until first space # origin />([\w\.\-\:']+)/
+			if($curr_header =~/>([\w\-\:\.\_']+)/) { # whatever follows '>' until first space # origin />([\w\.\-\:']+)/
 				$curr_seq_ID = $1;
+#				print "\nMatched $curr_seq_ID\n";
 			}
 			
 			$seq_num ++;
@@ -128,10 +133,11 @@ while(<IN_FASTA>) {
 close IN_FASTA;
 
 # READY TO STORE FINAL SEQUENCE
-# If there are multiples, it'll contain an underscore
-if($curr_seq_ID =~ /_/) {
-	$curr_seq_ID = $`;
-}
+# If there are multiples, it'll contain an underscore 
+## HPV ONLY
+##if($curr_seq_ID =~ /_/) {
+##	$curr_seq_ID = $`;
+##}
 
 # Store sequence
 if($seqs_hash{$curr_seq_ID}) { # if MATCHES ANOTHER previous...
