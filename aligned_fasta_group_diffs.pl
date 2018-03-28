@@ -10,6 +10,7 @@
 # EXAMPLE CALL:
 #########################################################################################
 # aligned_fasta_group_diffs.pl
+# aligned_fasta_group_diffs.pl --min_variant_maj_nt_freq=.9 --min_site_coverage=8
 #########################################################################################
 
 # Copyright (C) 2017 Chase W. Nelson
