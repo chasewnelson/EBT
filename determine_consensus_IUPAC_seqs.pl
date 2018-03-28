@@ -96,7 +96,7 @@ for(my $seq_id=1; $seq_id <= $seq_num; $seq_id++) { # for each sequence
 	
 	for(my $site_id=1; $site_id<=length($curr_seq); $site_id++) { # for each site
 		my $curr_site_index = $site_id - 1;
-		my $curr_nt = substr($curr_seq,$curr_site_index,1); # substr is 0-based indexing. VAR,OFFSET,LEN
+		my $curr_nt = substr($curr_seq, $curr_site_index, 1); # substr is 0-based indexing. VAR,OFFSET,LEN
 		#print "\ncurr_nt: $curr_nt";
 		
 		if($curr_nt eq 'A') {
