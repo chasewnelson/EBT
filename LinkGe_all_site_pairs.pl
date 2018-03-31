@@ -57,7 +57,7 @@ my $time1 = time;
 my $local_time1 = localtime;
 
 print "\n##########################################################################################";
-print "\nLinkGe post-analysis initiated at local time $local_time1";
+print "\n## LinkGe analysis initiated at local time $local_time1";
 print "\n##########################################################################################\n";
 
 #########################################################################################
@@ -102,9 +102,10 @@ for (my $i=0; $i<scalar(@header_names_arr); $i++) {
 }
 
 # Make sure we got all the expected headers
-my @required_headers = ('Reference Position', 'Reference', 'Allele', 'Count', 'Coverage', 
-						'Frequency');
-	
+#my @required_headers = ('Reference Position', 'Reference', 'Allele', 'Count', 'Coverage', 
+#						'Frequency');
+my @required_headers = ('Reference Position', 'Reference', 'Allele');
+						
 foreach(@required_headers) {
 	unless(exists $header_indices{$_}) {
 		die "### DIE: the header name $_ is not present in the epitope database file.\n\n";
@@ -617,7 +618,7 @@ sub end_the_program {
 
 	print "\n################################################################################".
 		"\n##                   LinkGe analysis completed successfully.                  ##".
-		"\n##        Please find results in the \/data\/ dir and subdirs (families).       ##\n".
+		"\n## Please find individual site pair results in $output_file_name\n".
 		"################################################################################".
 		"\n\n\n"; 
 }

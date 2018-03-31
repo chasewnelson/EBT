@@ -112,14 +112,14 @@ If a script isn't working, try working through the following checklist:
         remove_seqs_with_stops.pl <my_fasta_file.fasta>
 
 * <a name="LinkGe-all-site-pairs"></a>**LinkGe\_all\_site\_pairs.pl**. You have an aligned BAM file and a list of sites with their SNPs, and want to use Gabriel Starrett's <a target="_blank" href="https://github.com/gstarrett/LinkGe">LinkGe</a> program to check for linkage of SNPs in the same reads. For example, you may wish to test if high-frequency variant nucleotides are present in linked haplotypes in a deep-sequenced viral sample from a single host. At the command line, provide this script with the named arguments:
-	* *--snp\_file*: REQUIRED. One CLC-style "SNP report" file with, at minimum, the following three columns (with headers):
+	* *--snp\_file*: REQUIRED. One TAB-delimited, CLC-style "SNP report" file with, at minimum, the following three columns (with headers):
 		* **"Reference Position"**: the site number of the single nucleotide variant within the aligned BAM reads.
 		* **"Reference"**: the reference (majority) nucleotide.
 		* **"Allele"**: the allele (variant or mutant) nucleotide.
 	* *--BAM\_file*: REQUIRED. Standard format; must be aligned; reads of any length.
 	* *--max\_dist*: the maximum distance at which to search for pairs of sites covered by the same read. DEFAULT: 1000.
 
-	This script will then determine all pairs of sites provided in the **snp\_file** which fall within **max\_dist** of one another; run LinkGe for all identified pairs; and output read linkage information for all individual pairs (*LinkGe_\** file generated in working directory) and total summary data for linkage of reference and variant nucleotides (printed to screen). Here's an example:
+	This script will then determine all pairs of sites provided in the **snp\_file** which fall within **max\_dist** of one another; run LinkGe for all identified pairs; and output read linkage information for all individual pairs (*LinkGe_\** file generated in working directory) and total summary data for linkage of reference and variant nucleotides (printed to screen; **WT** refers to the reference nucleotide, **Mut** refers to the alternative nucleotide). Here's an example:
 	
 		LinkGe_all_site_pairs.pl --snp_file=<my_SNPs>.txt --BAM_file=<aligned_BAM>.bam --max_dist=500
 
