@@ -16,6 +16,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 	* **[get\_random\_integers.pl](#get-random-integers)**. You want to get a certain number of random integer values in a range.
 	* **[get\_unique\_values.pl](#get-unique-values)**. You have a table with a column containing multiple rows with the same value(s) (i.e., duplicates), and you want to extract just the unique ones (i.e., remove duplicate values) and generate summary statistics for the duplicates.
 	* **[gff2gtf.pl](#gff-to-gtf)**. You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input.
+	* **[LinkGe\_all\_site\_pairs](#LinkGe-all-site-pairs)**. You have an aligned BAM file and a list of sites with their SNPs, and want to use Gabriel Starrett's <a target="_blank" href="https://github.com/gstarrett/LinkGe">LinkGe</a> program to check for linkage of SNPs in the same reads.
 	* **[remove\_seqs\_with\_stops.pl](#remove-seqs-with-stops)**. You have a FASTA file where each sequence is an in-frame coding sequence, and want to remove all sequences containing mid-sequence STOP codons.
 	* **[split\_fasta.pl](#split-fasta)**. You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
 	* **[store\_fasta\_by\_ID.pl](#store-fasta-by-ID)**. You want to create a new FASTA file containing only a certain subset of another FASTA.
@@ -109,6 +110,20 @@ If a script isn't working, try working through the following checklist:
 * <a name="remove-seqs-with-stops"></a>**remove\_seqs\_with\_stops.pl**. You have a FASTA file where each sequence is an in-frame coding sequence, and want to remove all sequences containing mid-sequence STOP codons. At the command line, provide this script with one argument: a FASTA (.fa or .fasta) file containing multiple coding sequences that all begin at the first position of the first codon (they need not be aligned to each other). This script will create a new FASTA file in the working directory, containing just those sequences lacking an in-frame mid-sequence STOP codon. Here's an example:
 
         remove_seqs_with_stops.pl <my_fasta_file.fasta>
+
+* <a name="LinkGe-all-site-pairs"></a>**LinkGe\_all\_site\_pairs.pl**. You have an aligned BAM file and a list of sites with their SNPs, and want to use Gabriel Starrett's <a target="_blank" href="https://github.com/gstarrett/LinkGe">LinkGe</a> program to check for linkage of SNPs in the same reads. For example, you may wish to test if high-frequency variant nucleotides are present in linked haplotypes in a deep-sequenced viral sample from a single host. At the command line, provide this script with the named arguments:
+	* *--snp\_file*: REQUIRED. One CLC-style "SNP report" file with, at minimum, the following three columns (with headers):
+		* **"Reference Position"**: the site number of the single nucleotide variant within the aligned BAM reads.
+		* **"Reference"**: the reference (majority) nucleotide.
+		* **"Allele"**: the allele (variant or mutant) nucleotide.
+	* *--BAM\_file*: REQUIRED. Standard format; must be aligned; reads of any length.
+	* *--max\_dist*: the maximum distance at which to search for pairs of sites covered by the same read. DEFAULT: 1000.
+
+	This script will then determine all pairs of sites provided in the **snp\_file** which fall within **max\_dist** of one another; run LinkGe for all identified pairs; and output read linkage information for all individual pairs (*LinkGe_\** file generated in working directory) and total summary data for linkage of reference and variant nucleotides (printed to screen). Here's an example:
+	
+		LinkGe_all_site_pairs.pl --snp_file=<my_SNPs>.txt --BAM_file=<aligned_BAM>.bam --max_dist=500
+
+	Note that this script requires you to <a target="_blank" href="https://github.com/gstarrett/LinkGe">install LinkGe</a>, and to <a target="_blank" href="http://osxdaily.com/2014/08/14/add-new-path-to-path-command-line/">add it to your computer's PATH</a>. Three dependencies are also required: Bio::DB::Sam, BioPerl, and Samtools version 0.1.15. See the <a target="_blank" href="https://github.com/gstarrett/LinkGe">LinkGe page</a> for details.
 
 * <a name="split-fasta"></a>**split\_fasta.pl**. You want to create an individual FASTA file for each sequence in another FASTA file. At the command line, provide this script with one argument: a FASTA (.fa or .fasta) file containing multiple sequences. This script will create multiple files in the working directory, each containing one of the sequences. Here's an example:
 
