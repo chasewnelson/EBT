@@ -460,13 +460,20 @@ my $WT_WT_prop = $sum_linkage_data{WT_WT} / $total_defined_reads;
 my $WT_Mut_prop = $sum_linkage_data{WT_Mut} / $total_defined_reads;
 my $Mut_WT_prop = $sum_linkage_data{Mut_WT} / $total_defined_reads;
 my $Mut_Mut_prop = $sum_linkage_data{Mut_Mut} / $total_defined_reads;
+my $WTWT_MutMut_prop = ($sum_linkage_data{WT_WT} + $sum_linkage_data{Mut_Mut}) / $total_defined_reads;
+my $WTMut_MutWT_prop = ($sum_linkage_data{WT_Mut} + $sum_linkage_data{Mut_WT}) / $total_defined_reads;
+my $MutMut_of_Mut_prop = $sum_linkage_data{Mut_Mut} / 
+							($sum_linkage_data{WT_Mut} + $sum_linkage_data{Mut_WT} + $sum_linkage_data{Mut_Mut});
 
 print "\n########################\n### WT & Mut SUMMARY ###\n########################\n" .
 	"READS: $total_defined_reads\n" .
 	"WT_WT READS: $WT_WT_prop\n" .
 	"WT_Mut READS: $WT_Mut_prop\n" .
 	"Mut_WT READS: $Mut_WT_prop\n" .
-	"Mut_Mut READS: $Mut_Mut_prop\n" .
+	"Mut_Mut READS: $Mut_Mut_prop\n\n" .
+	"The proportion of READS WT/WT or Mut/Mut: $WTWT_MutMut_prop\n" .
+	"The proportion of READS WT/Mut or Mut/WT: $WTMut_MutWT_prop\n" .
+	"The proportion of Mut READS linked to other Mut: $MutMut_of_Mut_prop\n" .
 	"########################\n";
 
 print "\n";
