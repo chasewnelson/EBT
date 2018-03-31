@@ -108,6 +108,11 @@ foreach my $fasta_file_name (@fasta_file_names_arr) {
 		}
 	}
 	
+	if(@seqs_arr == 0) {
+		$seq_length = length($seq);
+		$last_seq_length = $seq_length;
+	}
+	
 	push(@seqs_arr,$seq);
 	#push(@headers_arr,$header);
 	
@@ -115,6 +120,7 @@ foreach my $fasta_file_name (@fasta_file_names_arr) {
 	
 	if($seq_length == 0) {
 		$seq_length = $last_seq_length;
+#		print "\nseq length is $seq_length\n";
 	} elsif($seq_length != $last_seq_length) {
 		die "\n\nDIE: The sequences from $fasta_file_name must be the same length as previous files. TERMINATED.\n\n";
 	}
@@ -185,6 +191,7 @@ for(my $i = 0; $i < $seq_length; $i++) {
 				if($nt_count{$observed_nt} > $maj_count) {
 					$maj_nt = $observed_nt;
 					$maj_count = $nt_count{$observed_nt};
+#					print "\nGroup $group site index $i has major nucleotide $maj_nt\n";
 				}
 			}
 		}
