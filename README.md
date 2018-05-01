@@ -9,6 +9,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 	* **[aligned\_fasta\_group\_diffs.pl](#aligned-fasta-group-diffs)**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences.
 	* **[aligned\_fasta2site\_nt\_freqs.pl](#aligned-fasta-2-site-nt-freqs)**. You want to tabulate the number (and proportion) of each nucleotide at each variable position across an aligned nucleotide FASTA file.
 	* **[calculate\_p\_distance.pl](#calculate-p-distance)**. You want to calculate a *p*-distance between two nucleotide sequences.
+	* **[count\_k\-mers.pl](#count-k-mers)**. You want to tally all k-mers for an aligned sequence and its genes.
 	* **[determine\_consensus\_IUPAC\_seqs.pl](#determine-consensus-IUPAC-seqs)**. You want to determine the consensus and/or IUPAC sequence(s) for an aligned nucleotide FASTA file. 
 	* **[extract\_codon\_from\_ANN\_VCFs.pl](#extract-codon-from-ANN-VCFs)**. You want to pull codon variants out of annotated VCF files (i.e., files that have been annotated using the <a target="_blank" href="http://snpeff.sourceforge.net/SnpSift.html">snpeff -formatEff</a> option), so that reference and variant codons can be compared. 
 	* **[extract\_fasta\_by\_sites.pl](#extract-fasta-by-sites)**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file.
@@ -78,6 +79,10 @@ If a script isn't working, try working through the following checklist:
 * <a name="calculate-p-distance"></a>**calculate\_p\_distance.pl**. You want to calculate a *p*-distance between two nucleotide sequences. At the command line, provide this script with two arguments: two FASTA (.fa or .fasta) files, each containing one sequence, which are aligned to each other. This script will exclude positions which are gaps (-) or undetermined (N) in both sequences and return a *p*-distance. Here's an example:
 
         calculate_p_distance.pl <aligned_seq_1.fasta> <aligned_seq_2.fasta>
+
+* <a name="count-k-mers"></a>**count\_k\-mers.pl**. You want to tally all k-mers for a group of aligned sequence and separately for its genes. At the command line, provide this script with three arguments: one ALIGNED FASTA (.fa or .fasta) file; one GTF file with gene annotations; and the max k-mer length. This script will exclude k-mers which contain gaps (-) or undetermined nucleotides (N). Here's an example:
+
+        count_k-mers.pl <aligned.fasta> <gene_annotations.gtf> <max_k>
 
 * <a name="determine-consensus-IUPAC-seqs"></a>**determine\_consensus\_IUPAC\_seqs.pl**. You want to determine the consensus and/or IUPAC sequence(s) for an aligned nucleotide FASTA file. At the command line, call this script with one argument, an aligned FASTA file. Two results files will be placed in the working directory, one with a consensus sequence (\*\_consensus.fa) and one with an IUPAC sequence (\*\_IUPAC.fa). Brief summary statistics will be printed to the Terminal. Here's an example:
 
