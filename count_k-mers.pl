@@ -27,7 +27,7 @@ use List::Util qw(max sum);
 
 my $fasta_filename = $ARGV[0];
 my $gtf_filename = $ARGV[1];
-my $max_k = 2;
+my $max_k = $ARGV[2];
 
 #########################################################################################
 # Read in the sequences from the file
@@ -290,7 +290,7 @@ foreach my $k (sort {$a <=> $b} keys %k_motif_count_leading) {
 			$mer_prop = $mer_count / $this_k_total;
 		}
 		
-		print "genome\t+\t$mer\t$mer_prop\t$mer_count\n";
+		print "$fasta_filename\tgenome\t+\t$mer\t$mer_prop\t$mer_count\n";
 	}
 }
 
@@ -307,7 +307,7 @@ foreach my $product (@curr_products_ordered_by_start) {
 				$mer_prop = $mer_count / $this_k_total;
 			}
 			
-			print "$product\t+\t$mer\t$mer_prop\t$mer_count\n";
+			print "$fasta_filename\t$product\t+\t$mer\t$mer_prop\t$mer_count\n";
 		}
 	}
 }
@@ -324,7 +324,7 @@ foreach my $k (sort {$a <=> $b} keys %k_motif_count_lagging) {
 			$mer_prop = $mer_count / $this_k_total;
 		}
 		
-		print "genome\t-\t$mer\t$mer_prop\t$mer_count\n";
+		print "$fasta_filename\tgenome\t-\t$mer\t$mer_prop\t$mer_count\n";
 	}
 }
 
@@ -341,7 +341,7 @@ foreach my $product (@curr_products_ordered_by_start) {
 				$mer_prop = $mer_count / $this_k_total;
 			}
 			
-			print "$product\t-\t$mer\t$mer_prop\t$mer_count\n";
+			print "$fasta_filename\t$product\t-\t$mer\t$mer_prop\t$mer_count\n";
 		}
 	}
 }
