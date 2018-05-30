@@ -17,7 +17,8 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 	* **[get\_random\_integers.pl](#get-random-integers)**. You want to get a certain number of random integer values in a range.
 	* **[get\_unique\_values.pl](#get-unique-values)**. You have a table with a column containing multiple rows with the same value(s) (i.e., duplicates), and you want to extract just the unique ones (i.e., remove duplicate values) and generate summary statistics for the duplicates.
 	* **[gff2gtf.pl](#gff-to-gtf)**. You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input.
-	* **[LinkGe\_all\_site\_pairs](#LinkGe-all-site-pairs)**. You have an aligned BAM file and a list of sites with their SNPs, and want to use Gabriel Starrett's <a target="_blank" href="https://github.com/gstarrett/LinkGe">LinkGe</a> program to check for linkage of SNPs in the same reads.
+	* **[haplotypes\_provided\_sites.pl](#haplotypes-provided-sites)**. You want to determine all haplotypes in a given FASTA alignment for a specific combination of sites.
+	* **[LinkGe\_all\_site\_pairs.pl](#LinkGe-all-site-pairs)**. You have an aligned BAM file and a list of sites with their SNPs, and want to use Gabriel Starrett's <a target="_blank" href="https://github.com/gstarrett/LinkGe">LinkGe</a> program to check for linkage of SNPs in the same reads.
 	* **[remove\_seqs\_with\_stops.pl](#remove-seqs-with-stops)**. You have a FASTA file where each sequence is an in-frame coding sequence, and want to remove all sequences containing mid-sequence STOP codons.
 	* **[reverse\_complement.pl](#reverse-complement)**. You want to obtain the reverse complement of a sequence supplied at the command line.
 	* **[split\_fasta.pl](#split-fasta)**. You have a FASTA file, and want to create an individual FASTA file for each sequence inside.
@@ -109,6 +110,10 @@ If a script isn't working, try working through the following checklist:
 
 * <a name="gff-to-gtf"></a>**gff2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) **DEPRECATED!** Use a tool like <a target="_blank" href="https://ccb.jhu.edu/software/stringtie/gff.shtml#gffread">gffread</a>.
 
+* <a name="haplotypes_provided_sites"></a>**haplotypes\_provided\_sites.pl**. You want to determine all haplotypes in a given FASTA alignment for a specific set of sites provided. At the command line, provide this script with two named arguments: (1) **--fasta\_file**, the name of the aligned FASTA file; and (2) **--sites\_file**, the name of a file containing a list of the sites of interst, separated by any whitespace (TABS, spaces, or newlines). The script outputs the unique haplotypes and their counts. Run as follows:
+
+        haplotypes_provided_sites.pl --sites_file=<sites_of_interest>.txt --fasta_file=<aligned_seqs>.fa
+        
 * <a name="LinkGe-all-site-pairs"></a>**LinkGe\_all\_site\_pairs.pl**. You have an aligned BAM file and a list of sites with their SNPs, and want to use Gabriel Starrett's <a target="_blank" href="https://github.com/gstarrett/LinkGe">LinkGe</a> program to check for linkage of SNPs in the same reads. For example, you may wish to test if high-frequency variant nucleotides are present in linked haplotypes in a deep-sequenced viral sample from a single host. At the command line, provide this script with the named arguments:
 	* *--snp\_file*: REQUIRED. One TAB-delimited, CLC-style "SNP report" file with, at minimum, the following three columns (with headers):
 		* **"Reference Position"**: the site number of the single nucleotide variant within the aligned BAM reads.
