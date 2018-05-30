@@ -96,10 +96,8 @@ If a script isn't working, try working through the following checklist:
 
         extract_fasta_by_sites.pl <multiple_aligned_seqs.fasta> <gene_coordinates_to_extract.gtf>
 
-* <a name="gb-to-gtf"></a>**gb2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to create a <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file from a GenBank file, compatible with SNPGenie input. At the command line, provide this script with one argument: a GenBank (.gbk) file. It will extract the coding element (CDS) annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie. Not working? Let us know, and we'll improve it! Here's an example:
+* <a name="gb-to-gtf"></a>**gb2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) **DEPRECATED!** Use a tool like <a target="_blank" href="https://ccb.jhu.edu/software/stringtie/gff.shtml#gffread">gffread</a>.
 
-        gb2gtf.pl <my_genbank_file.gbk>
-        
 * <a name="get-random-integers"></a>**get\_random\_integers.pl**. You want to get a certain number of random integer values in a range. At the command line, provide this script with three arguments: (1) number of random integer values wanted; (2) bottom of range (inclusive); (3) top of range (inclusive). Returns the specified number of random integers in the desired range. Here's an example to return 10 values in the range [3,999]:
 
         get_random_integers.pl 10 3 999
@@ -108,9 +106,7 @@ If a script isn't working, try working through the following checklist:
 
         get_unique_values.pl <my_table.txt> <column_number>
 
-* <a name="gff-to-gtf"></a>**gff2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input. At the command line, provide this script with one argument: a General Feature Format (.gff) file. It will extract the coding element annotations to produce a Gene Transfer Format (.gtf) file ready for SNPGenie, with "gene_id" annotations identified using the GFF "ID" tag. Not working, or need a different tag? Let us know, and we'll improve it! Here's an example:
-
-        gff2gtf.pl <my_gff_file.gff>
+* <a name="gff-to-gtf"></a>**gff2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) **DEPRECATED!** Use a tool like <a target="_blank" href="https://ccb.jhu.edu/software/stringtie/gff.shtml#gffread">gffread</a>.
 
 * <a name="remove-seqs-with-stops"></a>**remove\_seqs\_with\_stops.pl**. You have a FASTA file where each sequence is an in-frame coding sequence, and want to remove all sequences containing mid-sequence STOP codons. At the command line, provide this script with one argument: a FASTA (.fa or .fasta) file containing multiple coding sequences that all begin at the first position of the first codon (they need not be aligned to each other). This script will create a new FASTA file in the working directory, containing just those sequences lacking an in-frame mid-sequence STOP codon. Here's an example:
 
@@ -138,7 +134,7 @@ If a script isn't working, try working through the following checklist:
 
         store_fasta_by_ID.pl <all_seqs.fasta> <wanted_seqs_headers.txt> > <just_wanted_seqs.fasta>
 
-* <a name="vcf-to-revcom"></a>**vcf2revcom.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a VCF SNP report file, along with its accompanying FASTA file and <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, to the reverse complement strand. This script automates the creation of such reverse complement files, compatible with SNPGenie input. Note that the resulting SNP report will not be a VCF file, but rather a CLC Genomics Workbench format file. At the command line, provide this script with three arguments, in the following order: 
+* <a name="vcf-to-revcom"></a>**vcf2revcom.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) You want to convert a VCF SNP report file, along with its accompanying FASTA file and <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, to the reverse complement strand. This script automates the creation of such reverse complement files, compatible with SNPGenie input, **but the input must already be compatible with SNPGenie specifications**. Note that the resulting SNP report will not be a VCF file, but rather a CLC Genomics Workbench format file. At the command line, provide this script with three arguments, in the following order: 
 	1. A '+' strand FASTA (.fa or .fasta) file containing the reference sequence (ALL UPPERCASE) against which SNPs were called;
 	2. A '+' strand <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file containing both '+' and '–' strand products from the '+' strand point of view; and 
 	3. A '+' strand SNP report in VCF format.
