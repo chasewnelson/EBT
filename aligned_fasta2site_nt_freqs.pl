@@ -124,13 +124,17 @@ for(my $seq_id=1; $seq_id <= scalar(@seqs_arr); $seq_id++) { # for each sequence
 }
 
 # Do calculations and output to summary file
+my $file_prefix;
 my $summary_file_name;
 if($filename =~ '.fasta') {
 	$summary_file_name = $` . "_site_summary.txt";
+	$file_prefix = $`;
 } elsif($filename =~ '.fa') {
 	$summary_file_name = $` . "_site_summary.txt";
+	$file_prefix = $`;
 } else {
 	$summary_file_name = "fasta_site_summary.txt";
+	$file_prefix = "infile";
 }
 
 # Also prepare a "SNP report"
@@ -166,10 +170,13 @@ my %singleton_2_codon_pos_counts;
 my %singleton_multiV_codon_pos_counts;
 
 open(OUT, ">>$summary_file_name");
-print OUT "site\tA\tA_prop\tC\tC_prop\tG\tG_prop\tT\tT_prop\n";
+print OUT "$file_prefix\_site\t$file_prefix\_poly\t$file_prefix\_maj_nt\t$file_prefix\_IUPAC_nt\t$file_prefix\_alt_nts\t$file_prefix\_maj_nt_count\t$file_prefix\_maj_nt_freq\t" .
+	"$file_prefix\_alt_nt_count\t$file_prefix\_alt_nt_counts\t$file_prefix\_alt_nt_freq\t$file_prefix\_total_nt_count\t" .
+	"$file_prefix\_num_diff_nt\t$file_prefix\_A\t$file_prefix\_A_prop\t$file_prefix\_C\t$file_prefix\_C_prop\t" .
+	"$file_prefix\_G\t$file_prefix\_G_prop\t$file_prefix\_T\t$file_prefix\_T_prop\n";
 
-open(OUT_SNP, ">>$snp_file_name");
-print OUT_SNP "site\tA\tA_prop\tC\tC_prop\tG\tG_prop\tT\tT_prop\n";
+#open(OUT_SNP, ">>$snp_file_name");
+#print OUT_SNP "site\tA\tA_prop\tC\tC_prop\tG\tG_prop\tT\tT_prop\n";
 
 for(my $site_id=1; $site_id<=scalar(@A_counts); $site_id++) { # for each site
 	my $site_index = $site_id - 1;
@@ -218,6 +225,76 @@ for(my $site_id=1; $site_id<=scalar(@A_counts); $site_id++) { # for each site
 		}
 		
 		my $min_sum = $total - $maj_nt_count;
+		my $alt_nt_freq;
+		
+		if($total > 0) {
+			$alt_nt_freq = $min_sum / $total;
+		}
+		
+		
+		################
+		# Determine IUPAC nucleotide
+		# Go through variable sites and determine IUPAC code
+		# A, C, G, T as expected
+		# Y: pYrimidine; C or T
+		# R: puRine; A or G
+		# S: Strong bond: C or G
+		# W: Weak bond: A or T
+		# K: Keto: G or T [done]
+		# M: aMino: A or C [done]
+		# B: all except A, after which comes B: C, G, T [done]
+		# D: all except C, after which comes D: A, G, T [done]
+		# H: all except G, after which comes H: A, C, T [done]
+		# V: all except T/U, after which comes V: A, C, G [done]
+		# N: aNy base [done]
+		
+		my $IUPAC_nt = $maj_nt; # initialize as consensus
+		
+		if($A && $C && $G && $T) {  # N
+
+			$IUPAC_nt = 'N';
+			
+		} elsif($A && $C && $G) { # V
+	
+			$IUPAC_nt = 'V';
+			
+		} elsif($A && $C && $T) { # H
+	
+			$IUPAC_nt = 'H';
+			
+		} elsif($A && $G && $T) { # D
+	
+			$IUPAC_nt = 'D';
+			
+		} elsif($C && $G && $T) { # B
+	
+			$IUPAC_nt = 'B';
+			
+		} elsif($A && $C) { # M
+	
+			$IUPAC_nt = 'M';
+			
+		} elsif($G && $T) { # K
+	
+			$IUPAC_nt = 'K';
+			
+		} elsif($A && $T) { # W
+	
+			$IUPAC_nt = 'W';
+			
+		} elsif($C && $G) { # S
+	
+			$IUPAC_nt = 'S';
+			
+		} elsif($A && $G) { # R
+	
+			$IUPAC_nt = 'R';
+			
+		} elsif($C && $T) { # Y
+	
+			$IUPAC_nt = 'Y';
+			
+		} 
 		
 #		if($min_sum > 1) {
 #			$non_singleton_sites{$site_id} = 1;
@@ -225,25 +302,48 @@ for(my $site_id=1; $site_id<=scalar(@A_counts); $site_id++) { # for each site
 
 		# How many different variable nucleotides? Want to find only 2 (1 shared variant)
 		my $num_alt_nts = 0;
+		my $alt_nt_string;
+		my $alt_nt_counts;
+		
 		if($A > 0) {
 			$num_alt_nts++;
+			$alt_nt_string .= 'A,';
+			$alt_nt_counts .= "$A\,";
+			
 		}
 		if($C > 0) {
 			$num_alt_nts++;
+			$alt_nt_string .= 'C,';
+			$alt_nt_counts .= "$C\,";
 		}
 		if($G > 0) {
 			$num_alt_nts++;
+			$alt_nt_string .= 'G,';
+			$alt_nt_counts .= "$G\,";
 		}
 		if($T > 0) {
 			$num_alt_nts++;
+			$alt_nt_string .= 'T,';
+			$alt_nt_counts .= "$T\,";
 		}
 		
+		chop($alt_nt_string);
+		chop($alt_nt_counts);
+		
 		$num_vars2num_nts{$min_sum}->{$num_alt_nts}++;
+		
+		my $poly = 'FALSE';
+		
+		if($num_alt_nts > 1) {
+			$poly = 'TRUE';
+		}
 		
 		my $A_prop = ($A / $total);
 		my $C_prop = ($C / $total);
 		my $G_prop = ($G / $total);
 		my $T_prop = ($T / $total);
+		
+		my $maj_nt_freq = ($maj_nt_count / $total);
 		
 		# Compute transitions and transversions
 		my $num_pw_comps = (($total ** 2) - $total) / 2;
@@ -342,8 +442,9 @@ for(my $site_id=1; $site_id<=scalar(@A_counts); $site_id++) { # for each site
 #		print "\nThere are $transitions transitions and $transversions transversions\n".
 #			"The ratio is: $transi_transv_ratio\n\n";
 		
-		print OUT "$site_id\t$A\t$A_prop\t$C\t$C_prop\t$G\t$G_prop\t$T\t$T_prop\n";
-		
+		print OUT "$site_id\t$poly\t$maj_nt\t$IUPAC_nt\t$alt_nt_string\t$maj_nt_count\t$maj_nt_freq\t" .
+				"$min_sum\t$alt_nt_counts\t$alt_nt_freq\t$total\t" .
+				"$num_alt_nts\t$A\t$A_prop\t$C\t$C_prop\t$G\t$G_prop\t$T\t$T_prop\n";
 	}
 	
 }
