@@ -6,6 +6,7 @@ Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq*
 * **[Citation](#citation)**
 * **[Troubleshooting](#troubleshooting)**
 * **[Scripts](#scripts)**
+	* **[align\_codon2aa.pl](#align-codon-2-aa)**. You want to impose an amino acid alignment on the underlying nucleotide sequence.
 	* **[aligned\_fasta\_group\_diffs.pl](#aligned-fasta-group-diffs)**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences.
 	* **[aligned\_fasta2site\_nt\_freqs.pl](#aligned-fasta-2-site-nt-freqs)**. You want to tabulate the number (and proportion) of each nucleotide at each variable position across an aligned nucleotide FASTA file.
 	* **[calculate\_p\_distance.pl](#calculate-p-distance)**. You want to calculate a *p*-distance between two nucleotide sequences.
@@ -61,6 +62,11 @@ If a script isn't working, try working through the following checklist:
 	If the string of letters at the beginning of the line containing your script (here, it's **-rwxr-xr-x**) *does not* contain an 'x', it means it is not yet executable. You can add executable status by typing **chmod +x \<script.pl\>**, where \<script.pl\> is replaced with the script's name.
 
 ## <a name="scripts"></a>Scripts
+
+* <a name="align-codon-2-aa"></a>**align\_codon2aa.pl**. You want to impose an amino acid alignment on the underlying nucleotide sequence. At the command line, call this script with two arguments: (1) aligned amino acid sequence; and (2) nucleotide sequence. The codon-aligned nucleotide sequence will the be printed to the screen. For example:
+
+        align_codon2aa.pl <aligned amino acid sequence> <nucleotide sequence>
+		align_codon2aa.pl MSAARKRTL-L ATGTCGGCGGCTCGTAAGCGCACCTTGTTG
 
 * <a name="aligned-fasta-group-diffs"></a>**aligned\_fasta\_group\_diffs.pl**. You have two or more groups of sequences, aligned to one another but in separate FASTA files, and want to identify the sites at which the groups exhibit differences. First, make sure all sequences are aligned to one another (even across groups), place each group of sequences in a separate FASTA file, and create a directory containing all the group FASTA files (but no others). Then, at the command line, call this script. A results file will be placed in the working directory describing positions at which the groups differ in their major nucleotide. For more control use the following options:
 	* *--min\_variant\_maj\_nt_freq* to specify a minimum frequency cutoff for assigning a group's majority (consensus) nucleotide. Must be a decimal. Default=0.9 (90%).
