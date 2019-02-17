@@ -1,5 +1,5 @@
-# CHASeq
-Perl scripts providing **C**omputational **H**elp for the **A**nalysis of **Seq**uence data.
+# Evolutionary Bioinformatics Toolkit
+Perl scripts providing computational help for the evolutionary analysis of sequence data.
 
 ## <a name="contents"></a>Contents
 * **[Before You Begin](#before-you-begin)**
