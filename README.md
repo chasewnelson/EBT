@@ -34,11 +34,11 @@ I provide these scripts for anyone to use freely for help in performing routine 
 
 Most scripts are designed to take (unnamed) arguments for simple data file manipulations, in the following format:
 
-        CHASeq_script.pl <argument1> <argument2>
+        EBT_script.pl <argument1> <argument2>
 
 where \<argument1\> is ommitted and replaced with the desired input value. Some more complicated scripts will contain named arguments in Perl's long form, in the following format:
 
-        CHASeq_script.pl --argument-name=<value>
+        EBT_script.pl --argument-name=<value>
         
 where \<value\> is ommitted and replaced with the desired input value.
 
@@ -46,7 +46,7 @@ where \<value\> is ommitted and replaced with the desired input value.
 
 When using this software, please refer to and cite:
 
->CHASeq software package, https://github.com/chasewnelson/CHASeq
+>EBT software package, https://github.com/chasewnelson/EBT
 
 ## <a name="troubleshooting"></a>Troubleshooting
 
@@ -54,7 +54,7 @@ If a script isn't working, try working through the following checklist:
 
 * Remember that you must open the Terminal and navigate to the directory which contains the script before you're able to call it. More advanced users may wish to place the script(s) in a directory included in your computer's PATH so that it can be called from any directory.
 * Did you place the script in the same directory as your data? If not, you could move the script to the data-containing directory, or *vice versa*. Another option is to provide the full path of the input files to the script, e.g., **/Users/cwnelson88/Desktop/my\_project/my\_data.fasta**
-* These scripts assume that your computer's copy of Perl is located at **/usr/bin/perl**. You can check whether this is the case by opening the Terminal and typing **which perl** at the command line. If this does not return **/usr/bin/perl**, then (1) copy the path it provides; (2) open the CHASeq script; (3) replace **#! /usr/bin/perl** at the top of the script with your own computer's path.
+* These scripts assume that your computer's copy of Perl is located at **/usr/bin/perl**. You can check whether this is the case by opening the Terminal and typing **which perl** at the command line. If this does not return **/usr/bin/perl**, then (1) copy the path it provides; (2) open the script; (3) replace **#! /usr/bin/perl** at the top of the script with your own computer's path.
 * Scripts must be made executable before use. You can check whether this is the case my opening the Terminal, navigating to the directory containing the script, and typing **ls -l**, which will return something like the following:
 
         -rwxr-xr-x@  1  name  staff  155  Sep 25  2013  script.pl
