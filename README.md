@@ -1,5 +1,5 @@
 # Evolutionary Bioinformatics Toolkit
-Perl scripts providing computational help for the evolutionary analysis of sequence data.
+A smorgasbord of scripts providing computational help for the evolutionary analysis of sequence data.
 
 ## <a name="contents"></a>Contents
 * **[Before You Begin](#before-you-begin)**
