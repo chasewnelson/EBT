@@ -15,6 +15,7 @@ A smorgasbord of scripts providing computational help for the evolutionary analy
 	* **[extract\_codon\_from\_ANN\_VCFs.pl](#extract-codon-from-ANN-VCFs)**. You want to pull codon variants out of annotated VCF files (i.e., files that have been annotated using the <a target="_blank" href="http://snpeff.sourceforge.net/SnpSift.html">snpeff -formatEff</a> option), so that reference and variant codons can be compared. 
 	* **[extract\_fasta\_by\_sites.pl](#extract-fasta-by-sites)**. You want to create separate FASTA files for segments (e.g., each of the genes) in an aligned sequence file.
 	* **[gb2gtf.pl](#gb-to-gtf)**. You want to create a <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file from a GenBank file, compatible with SNPGenie input.
+	* **[generate\_seqs\_from\_VCF.py](#generate-seqs-from-VCF)**. You want to generate a FASTA file of sequences with variants randomly interspersed at the appropriate frequencies from a VCF file.
 	* **[get\_random\_integers.pl](#get-random-integers)**. You want to get a certain number of random integer values in a range.
 	* **[get\_unique\_values.pl](#get-unique-values)**. You have a table with a column containing multiple rows with the same value(s) (i.e., duplicates), and you want to extract just the unique ones (i.e., remove duplicate values) and generate summary statistics for the duplicates.
 	* **[gff2gtf.pl](#gff-to-gtf)**. You want to convert a GFF file to a simpler <a target="_blank" href="http://mblab.wustl.edu/GTF22.html">GTF</a> file, compatible with SNPGenie input.
@@ -28,7 +29,7 @@ A smorgasbord of scripts providing computational help for the evolutionary analy
 
 ## <a name="before-you-begin"></a>Before You Begin
 
-I provide these scripts for anyone to use freely for help in performing routine bioinformatics tasks with nucleotide sequence and related data. Please just [cite this GitHub page](#citation). The scripts are meant for use on Unix/Mac machines; no support is offered for Windows. Readers of code, be warned: very little effort has been made to 'clean up' my coding comments and alternative operations. Think of them as pseudogenes!
+I provide these scripts for anyone to use freely for help in performing routine bioinformatics tasks with nucleotide sequence and related data. Please just [cite this GitHub page](#citation). The scripts are meant for use on Unix/Mac machines; no support is offered for Windows. Readers of code, be warned: very little effort has been made to 'clean up' my coding comments and alternative operations. Pseudogenes abound!
 
 ### How to Use
 
@@ -46,7 +47,7 @@ where \<value\> is ommitted and replaced with the desired input value.
 
 When using this software, please refer to and cite:
 
->EBT software package, https://github.com/chasewnelson/EBT
+>Nelson CW, Evolutionary Bioinformatics Toolkit, https://github.com/chasewnelson/EBT
 
 ## <a name="troubleshooting"></a>Troubleshooting
 
@@ -105,6 +106,10 @@ If a script isn't working, try working through the following checklist:
         extract_fasta_by_sites.pl <multiple_aligned_seqs.fasta> <gene_coordinates_to_extract.gtf>
 
 * <a name="gb-to-gtf"></a>**gb2gtf.pl**. (*Helpful for preparing **<a target="_blank" href="https://github.com/chasewnelson/snpgenie">SNPGenie</a>** input!*) **DEPRECATED!** Use a tool like <a target="_blank" href="https://ccb.jhu.edu/software/stringtie/gff.shtml#gffread">gffread</a>.
+
+* <a name="generate-seqs-from-VCF"></a>**generate\_seqs\_from\_VCF.py**. You want to generate a FASTA file of sequences with variants randomly interspersed at the appropriate frequencies from a VCF file. At the command line, provide this script with three arguments: (1) FASTA reference (1 sequence); (2) a SNP report in VCF format that includes the 'AF' INFO entry; and (3) number of sequences to generate. Note that this Python script requires the following libraries: **SeqIO**, **os**, **random**, **re**, and **sys**. For example, for a reference sequence in a file named **reference.fasta**, a VCF-format SNP report in a file named **variants.vcf**, and to create **1,000** sequences, one would run the following:
+
+        generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
 
 * <a name="get-random-integers"></a>**get\_random\_integers.pl**. You want to get a certain number of random integer values in a range. At the command line, provide this script with three arguments: (1) number of random integer values wanted; (2) bottom of range (inclusive); (3) top of range (inclusive). Returns the specified number of random integers in the desired range. Here's an example to return 10 values in the range [3,999]:
 
